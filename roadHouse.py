@@ -11,12 +11,10 @@ else:
   houseNumber = sys.argv[-1]
   forbidenList = ['+','/','-','*',',','.'] 
   
-  if any(not c.isalnum() for c in forbidenList):
-    if houseNumber[-1].isalpha():
-      translation = houseNumber.maketrans({i:"" for i in forbidenList})
+  if any( c in houseNumber for c in forbidenList):
+      translation = houseNumber.maketrans({i:"" for i in ['к','К','k','K']})
       houseNumber = houseNumber.translate(translation)
-    else:
-      translation = houseNumber.maketrans({i:"k" for i in forbidenList})
+      translation = houseNumber.maketrans({i:" k" for i in ['/']})
       houseNumber = houseNumber.translate(translation)
 
   query = ' '.join(list(filter(lambda x: len(x) > 3, sys.argv[1:-2])))
