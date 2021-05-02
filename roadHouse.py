@@ -2,22 +2,21 @@ import sys, json
 import requests
 import np
 
-def is_number(s):
-    try:
-        float(s)
-        return True
-    except ValueError:
-        return False
 
-
-if is_number(sys.argv[1]) and is_number(sys.argv[2]):
+if len(sys.argv) == 3:
   x=sys.argv[1]
-  y=sys.argv[2] 
-  r = requests.get('https://nominatim.openstreetmap.org/search.php?q='+x+'%2C'+y+'&polygon_geojson=1&format=jsonv2')
+  y=sys.argv[2]
+  query = x +' '+ y 
 else:
-  print('https://geocode-maps.yandex.ru/1.x/?geocode='+'+'.join(sys.argv[1:]))
-  r = requests.get('https://geocode-maps.yandex.ru/1.x/?geocode='+'+'.join(sys.argv[1:]))
-  print('wrong')
+  houseNumber = sys.argv[-1]
+  print(houseNumber)
+  query = ' '.join(list(filter(lambda x: len(x) > 3, sys.argv[1:])))+' '+houseNumber
+
+print(query)
+print('https://nominatim.openstreetmap.org/search.php?q='+query+'&polygon_geojson=1&format=jsonv2')
+r = requests.get('https://nominatim.openstreetmap.org/search.php?q='+query+'&polygon_geojson=1&format=jsonv2')
+#print(r.content)
+
 
 coordinates = r.json()[0]['geojson']['coordinates']
 for pair in coordinates[0]:
