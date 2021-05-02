@@ -18,7 +18,7 @@ else:
       houseNumber = houseNumber.translate(translation)
 
   query = ' '.join(list(filter(lambda x: len(x) > 3, sys.argv[1:-2])))
-  translation = query.maketrans({i:"" for i in forbidenList})
+  translation = query.maketrans({i:" " for i in forbidenList})
   query = query.translate(translation)
   query = query + ' '+houseNumber
 
