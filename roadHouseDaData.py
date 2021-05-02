@@ -9,17 +9,20 @@ if len(sys.argv) == 3:
   query = x +' '+ y 
 else:
   houseNumber = sys.argv[-1]
-  forbidenList = ['+','/','-','*',',','.'] 
+  forbidenList = ['+','/','-','*'] 
   
-  if any(not c.isalnum() for c in forbidenList):
+  if any(not c.isalnum() for c in mystring):
+    print('a1')
     if houseNumber[-1].isalpha():
+      print('a')
       translation = houseNumber.maketrans({i:"" for i in forbidenList})
       houseNumber = houseNumber.translate(translation)
     else:
+      print('b')
       translation = houseNumber.maketrans({i:"k" for i in forbidenList})
       houseNumber = houseNumber.translate(translation)
 
-  query = ' '.join(list(filter(lambda x: len(x) > 3, sys.argv[1:-2])))
+  query = ' '.join(list(filter(lambda x: len(x) > 5, sys.argv[1:])))
   translation = query.maketrans({i:"" for i in forbidenList})
   query = query.translate(translation)
   query = query + ' '+houseNumber
